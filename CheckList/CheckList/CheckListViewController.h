@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddItemViewController.h"
 
-@interface CheckListViewController : UITableViewController
+@interface CheckListViewController : UITableViewController <AddItemViewControllerDelegate>
 @property (nonatomic, retain) NSMutableArray *items;
 -(void)addItem;
 @end

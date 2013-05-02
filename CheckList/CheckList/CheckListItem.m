@@ -10,16 +10,34 @@
 
 @implementation CheckListItem
 @synthesize text, checked;
+
 -(void)toggleCheck
 {
     self.checked = !self.checked;
 }
-- (id)initWithText:(NSString *)text withCheckedState:(BOOL)checked
+
+- (id)initWithText:(NSString *)aText withCheckedState:(BOOL)aChecked
 {
     if((self = [super init])) {
-        self.text = text;
-        self.checked = checked;
+        self.text = aText;
+        self.checked = aChecked;
     }
     return self;
 }
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.text forKey:@"Text"];
+    [aCoder encodeBool:self.checked forKey:@"Checked"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if((self = [super init])) {
+        self.text = [aDecoder decodeObjectForKey:@"Text"];
+        self.checked = [aDecoder decodeBoolForKey:@"Checked"];
+    }
+    return self;
+}
+
 @end

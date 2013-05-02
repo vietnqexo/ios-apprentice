@@ -13,11 +13,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckListItem" id="5Fn-sQ-Vc5">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckListItem" id="5Fn-sQ-Vc5">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1000" contentMode="left" text="Check list item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEX-uB-FuY">
@@ -28,12 +28,23 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1001" contentMode="left" text="√" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vak-rs-noq">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="21" id="TnH-8n-PWB"/>
+                                                <constraint firstAttribute="height" constant="21" id="qGW-p8-sw5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="gEX-uB-FuY" firstAttribute="leading" secondItem="5Fn-sQ-Vc5" secondAttribute="leading" constant="20" type="default" id="JF6-Uc-1bg"/>
-                                    <constraint firstItem="gEX-uB-FuY" firstAttribute="top" secondItem="5Fn-sQ-Vc5" secondAttribute="top" constant="11" id="zq4-Na-Xma"/>
+                                    <constraint firstItem="Vak-rs-noq" firstAttribute="leading" secondItem="5Fn-sQ-Vc5" secondAttribute="leading" constant="15" id="Yrr-ee-l6s"/>
+                                    <constraint firstItem="gEX-uB-FuY" firstAttribute="leading" secondItem="5Fn-sQ-Vc5" secondAttribute="leading" constant="53" id="kcQ-xr-U3Z"/>
+                                    <constraint firstItem="Vak-rs-noq" firstAttribute="top" secondItem="5Fn-sQ-Vc5" secondAttribute="top" constant="11" id="ku8-I9-fKh"/>
+                                    <constraint firstItem="Vak-rs-noq" firstAttribute="top" secondItem="gEX-uB-FuY" secondAttribute="top" type="default" id="xSM-3m-IsE"/>
                                 </constraints>
                             </tableViewCell>
                         </prototypes>
@@ -49,10 +60,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="ktG-2N-btc" kind="modal" identifier="EditItem" id="O9Y-Kd-QQQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qks-42-Yas" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="429" y="-433"/>
+            <point key="canvasLocation" x="277" y="-438"/>
         </scene>
         <!--Add Item View Controller-->
         <scene sceneID="vDH-ah-pFp">
@@ -72,7 +86,7 @@
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the task" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="IxT-f0-jxn">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="IxT-f0-jxn">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="lGL-Ip-wxq"/>
                                                         <constraint firstAttribute="width" constant="288" id="nY1-SZ-T1v"/>
@@ -100,7 +114,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="FbK-af-9z9">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Jzb-Od-KXC"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Jzb-Od-KXC">
+                            <connections>
+                                <action selector="cancel" destination="ldG-SE-bRb" id="zAW-bf-NF8"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="QeD-BO-UbI">
                             <connections>
                                 <action selector="done" destination="ldG-SE-bRb" id="vZe-P0-R8m"/>
@@ -114,7 +132,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aiF-vr-FfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1308" y="-438"/>
+            <point key="canvasLocation" x="1120" y="-486"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oWn-z1-TXO">
@@ -132,7 +150,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0e-57-qW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="25" y="-439"/>
+            <point key="canvasLocation" x="-111" y="-433"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QXO-R3-Tov">
@@ -150,7 +168,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIh-Sd-x5q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="782" y="-438"/>
+            <point key="canvasLocation" x="696" y="-562"/>
         </scene>
     </scenes>
     <classes>
@@ -175,4 +193,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="O9Y-Kd-QQQ"/>
+    </inferredMetricsTieBreakers>
 </document>
