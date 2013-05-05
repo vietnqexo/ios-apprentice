@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 vietnq. All rights reserved.
 //
 
-#import "AddItemViewController.h"
+#import "ItemDetailViewController.h"
 #import "CheckListItem.h"
-@interface AddItemViewController ()
+@interface ItemDetailViewController ()
 
 @end
 
-@implementation AddItemViewController
+@implementation ItemDetailViewController
 @synthesize delegate;
 @synthesize editedItem;
 - (id)initWithStyle:(UITableViewStyle)style
@@ -30,12 +30,12 @@
     if(self.editedItem) {
         self.title = @"Edit Item";
         self.doneBarButton.enabled = YES;
-        [self.inputItem setText:editedItem.text];
+        [self.textField setText:editedItem.text];
     } else {
         self.title = @"Add Item";
         self.doneBarButton.enabled = NO;
     }
-    [self.inputItem becomeFirstResponder];
+    [self.textField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,10 +57,10 @@
 - (void)done
 {
     if(self.editedItem) {
-        editedItem.text = self.inputItem.text;
+        editedItem.text = self.textField.text;
         [self.delegate addItemViewController:self didFinishEditingItem:editedItem];
     } else {
-        CheckListItem *item = [[CheckListItem alloc]initWithText:self.inputItem.text withCheckedState:NO];
+        CheckListItem *item = [[CheckListItem alloc]initWithText:self.textField.text withCheckedState:NO];
         [self.delegate addItemViewController:self didFinishAddingItem:item];
     }
     
