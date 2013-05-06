@@ -11,5 +11,6 @@
 #import "DataModel.h"
 @interface AllListViewController : UITableViewController <ListDetailViewControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) DataModel *dataModel;
+@property (nonatomic, strong) IBOutlet UIImage *iconImage;
 - (void)saveData;
 @end

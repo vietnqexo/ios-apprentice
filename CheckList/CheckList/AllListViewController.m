@@ -87,6 +87,7 @@
     CheckList *list = [self.dataModel.lists objectAtIndex:indexPath.row];
     cell.textLabel.text = list.name;
     cell.detailTextLabel.text = [self detailForCheckList:list];
+    cell.imageView.image = [UIImage imageNamed:list.iconName];
     return cell;
 }
 

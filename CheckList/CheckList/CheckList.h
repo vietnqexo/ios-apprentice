@@ -11,6 +11,7 @@
 @interface CheckList : NSObject <NSCoding>
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, strong) NSString *iconName;
 - (id)initWithName:(NSString *)aName;
 - (int)countUnCheckedItems;
 @end
