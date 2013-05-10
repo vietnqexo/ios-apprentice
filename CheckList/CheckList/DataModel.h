@@ -14,4 +14,5 @@
 - (void)setSelectedCheckListIndex:(int)index;
 - (int)getSelectedCheckListIndex;
 - (void)sortCheckList;
++ (int)nextCheckListItemId;
 @end

@@ -22,7 +22,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.title = self.checklist.name;
-    NSLog(@"nb of item: %d", [self.checklist.items count]);
 }
 
 

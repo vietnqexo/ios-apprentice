@@ -43,23 +43,6 @@
     } else {
         self.lists = [[NSMutableArray alloc]initWithCapacity:20];
         
-//        CheckList *list;
-//        
-//        list = [[CheckList alloc] initWithName:@"Todo"];
-//        [self.lists addObject:list];
-//        
-//        list = [[CheckList alloc] initWithName:@"Birthdays"];
-//        [self.lists addObject:list];
-//        
-//        list = [[CheckList alloc] initWithName:@"Meeting"];
-//        [self.lists addObject:list];
-//        
-//        for(CheckList *list in self.lists) {
-//            NSString *tmpText = [NSString stringWithFormat:@"Item for %@", list.name];
-//            CheckListItem *item = [[CheckListItem alloc] initWithText:tmpText withCheckedState:NO];
-//            [list.items addObject:item];
-//        }
-//        
     }
 }
 - (NSString *)documentDirectory
@@ -90,7 +73,11 @@
 
 - (void)registerDefaults
 {
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:-1],@"SelectedCheckListIndex", [NSNumber numberWithBool:YES],@"FirstTimeRun",nil];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSNumber numberWithInt:-1],@"SelectedCheckListIndex",
+                                [NSNumber numberWithBool:YES],@"FirstTimeRun",
+                                [NSNumber numberWithInt:0],@"CheckListItemId",
+                                nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 }
 
@@ -103,5 +90,12 @@
         [self setSelectedCheckListIndex:0];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstTimeRun"];
     }
+}
++ (int)nextCheckListItemId
+{
+    int currentId = [[NSUserDefaults standardUserDefaults] integerForKey:@"CheckListItemId"];
+    [[NSUserDefaults standardUserDefaults] setInteger:currentId + 1 forKey:@"CheckListItemId"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    return currentId + 1;
 }
 @end
