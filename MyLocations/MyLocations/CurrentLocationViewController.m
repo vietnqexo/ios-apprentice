@@ -17,16 +17,21 @@
 
 @implementation CurrentLocationViewController {
     CLLocationManager *locationManager;
+    CLGeocoder *geocoder;
     CLLocation *location;
     NSError *lastLocationError;
     BOOL updatingLocation;
-    
+    BOOL performingGeoLocation;
+    NSError *lastGeoLocationError;
+    CLPlacemark *placemark;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     if((self = [super initWithCoder:aDecoder])) {
         locationManager = [[CLLocationManager alloc] init];
+        geocoder = [[CLGeocoder alloc] init];
+        
     }
     return self;
 }
@@ -53,6 +58,7 @@
     } else {
         location = nil;
         lastLocationError = nil;
+        lastGeoLocationError = nil;
         [self startLocationManager];
     }
     [self updateLabels];
@@ -93,6 +99,20 @@
             [self stopLocationManager];
             [self configureGetButton];
         }
+        
+        if(!performingGeoLocation) {
+            performingGeoLocation = YES;
+            [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+                lastGeoLocationError = error;
+                if(error == nil && [placemarks count] > 0) {
+                    placemark = [placemarks lastObject];
+                } else {
+                    placemark = nil;
+                }
+                performingGeoLocation = NO;
+                [self updateLabels];
+            }];
+        }
     }
     
 }
@@ -109,6 +129,15 @@
         self.latitudeLabel.text = [NSString stringWithFormat:@"%.8f",location.coordinate.latitude];
         self.longitudeLabel.text = [NSString stringWithFormat:@"%.8f", location.coordinate.longitude];
         self.tagButton.hidden = NO;
+        if(placemark != nil) {
+            self.addressLabel.text = [self stringFromPlaceMark:placemark];
+        } else if(performingGeoLocation) {
+            self.addressLabel.text = @"Searching for address";
+        } else if(lastGeoLocationError != nil) {
+            self.addressLabel.text = @"Error loading address";
+        } else {
+            self.addressLabel.text = @"No address found";
+        }
     } else {
         self.latitudeLabel.text = @"";
         self.longitudeLabel.text = @"";
@@ -157,5 +186,10 @@
     } else {
         [self.getLocationButton setTitle:@"Get location" forState:UIControlStateNormal];
     }
+}
+
+- (NSString *)stringFromPlaceMark:(CLPlacemark *)aplacemark
+{
+    return  [NSString stringWithFormat:@"%@ %@\n%@ %@ %@",aplacemark.subThoroughfare, aplacemark.thoroughfare, aplacemark.locality, aplacemark.administrativeArea, aplacemark.postalCode];
 }
 @end
