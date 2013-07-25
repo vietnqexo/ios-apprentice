@@ -47,6 +47,7 @@
 		7D9A3E3F17A01EC8003BE9D7 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9A3E3E17A01EC8003BE9D7 /* SearchResultCell.xib */; };
 		7D9A3E4217A01EEA003BE9D7 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9A3E4117A01EEA003BE9D7 /* SearchResultCell.m */; };
 		7D9A3E4417A023D5003BE9D7 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9A3E4317A023D5003BE9D7 /* NothingFoundCell.xib */; };
+		7DCCE54117A11C2C00EA4868 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCCE54017A11C2C00EA4868 /* LoadingCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 		7D9A3E4017A01EEA003BE9D7 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
 		7D9A3E4117A01EEA003BE9D7 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
 		7D9A3E4317A023D5003BE9D7 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
+		7DCCE54017A11C2C00EA4868 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +244,7 @@
 				7D9A3E4017A01EEA003BE9D7 /* SearchResultCell.h */,
 				7D9A3E4117A01EEA003BE9D7 /* SearchResultCell.m */,
 				7D9A3E4317A023D5003BE9D7 /* NothingFoundCell.xib */,
+				7DCCE54017A11C2C00EA4868 /* LoadingCell.xib */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				7D9A3E3917A01E29003BE9D7 /* TableCellGradient.png in Resources */,
 				7D9A3E3F17A01EC8003BE9D7 /* SearchResultCell.xib in Resources */,
 				7D9A3E4417A023D5003BE9D7 /* NothingFoundCell.xib in Resources */,
+				7DCCE54117A11C2C00EA4868 /* LoadingCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +470,7 @@
 				7D9A3DFF17A019B4003BE9D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
