@@ -18,4 +18,9 @@
 @synthesize currency = _currency;
 @synthesize price = _price;
 @synthesize genre = _genre;
+
+- (NSComparisonResult)compareName:(SearchResult *)other
+{
+    return [self.name localizedCaseInsensitiveCompare:other.name];
+}
 @end
