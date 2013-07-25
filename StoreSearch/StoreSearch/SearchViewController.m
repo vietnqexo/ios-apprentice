@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "SearchResult.h"
 #import "SearchResultCell.h"
+#import "AFJSONRequestOperation.h"
 static NSString *SearchResultCellIdentifier = @"SearchResultCell";
 static NSString *NothingFoundCellIdentifier = @"NothingFoundCell";
 static NSString *LoadingCellIdentifier = @"LoadingCell";
@@ -21,9 +22,19 @@ static NSString *LoadingCellIdentifier = @"LoadingCell";
 @implementation SearchViewController {
     NSMutableArray *searchResults;
     BOOL isLoading;
+    NSOperationQueue *queue;
 }
 @synthesize searchBar = _searchBar;
 @synthesize tableView = _tableView;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        queue = [[NSOperationQueue alloc] init];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -115,35 +126,27 @@ static NSString *LoadingCellIdentifier = @"LoadingCell";
     NSString *searchText = searchBar.text;
     if([searchText length] > 0) {
         [searchBar resignFirstResponder];
+        [queue cancelAllOperations];
+        
         isLoading = YES;
         [self.tableView reloadData];
         
         searchResults = [[NSMutableArray alloc] init];
         
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(queue, ^{
-            NSURL *url = [self searchRequestUrl:searchText];
-            NSString *jsonString = [self performSearchRequest:url];
-            if(jsonString == nil) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self showNetworkError];
-                });
-                return;
-            }
-            NSDictionary *dict = [self parseJSON:jsonString];
-            if(dict == nil) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self showNetworkError];
-                });
-                return;
-            }
-            [self parseDictionnary:dict];
+        NSURL *url = [self searchRequestUrl:searchText];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [self parseDictionnary:JSON];
             [searchResults sortUsingSelector:@selector(compareName:)];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                isLoading = NO;
-                [self.tableView reloadData];
-            });
-        });
+            isLoading = NO;
+            [self.tableView reloadData];
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [self showNetworkError];
+            isLoading = NO;
+            [self.tableView reloadData];
+        }];
+        operation.acceptableContentTypes = [NSSet setWithObjects:@"text/json", @"application/json", @"text/javascript", nil];
+        [queue addOperation:operation];
     }
 }
 #pragma mark UIAlertViewDelegate methods
